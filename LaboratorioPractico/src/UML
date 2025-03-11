@@ -1,0 +1,107 @@
+@startuml
+
+class Alumno{
+-string nombre;
+-string matricula;
+-string grupo;
+- List<Evaluacion> Evaluaciones;
+}
+
+class Profesor{
+-string nombre;
+-string dni;
+-string correo;
+-string direccion;
+-string cargo;
+-string telefono;
+-date fechaInicio contrato;
+-date fechaFin contrato;
+-List<Asignatura> Asignaturas;
+-List<Tema> Temas;
+-List<Evaluacion> EvaluacionesDiseñadas;
+
+
+}
+
+class Asignatura{
+-string codigo;
+-string nombre;
+-string descripcion;
+-integer creditos;
+-integer año;
+-integer semestre;
+-string horario;
+-List<Tema> Temas;
+-List<Evaluacion> Evaluaciones;
+
+
+}
+
+class Tema {
+-integer id;
+-string nombre;
+-string descripcion;
+-string recursos;
+-string dificultad;
+}
+
+class Evaluacion{
+-string tipo;
+-integer id;
+-date fecha;
+-float ponderacionTeorico;
+-float ponderacionRedaccion;
+-float ponderacionLaboratorio;
+-float ponderacionEficiencia;
+- List<Tema> Temas;
+}
+
+class Practica extends Evaluacion{
+-string codigo;
+-string titulo;
+-string dificultad;
+- boolean EsGrupal;
+}
+
+class controlEscrito extends Evaluacion{
+-integer numeroControl;
+-integer numeroPreguntas;
+-date fechaRealizacion;
+list<alumno> listadeAlumnos;
+}
+
+class Nota{
+-float valor;
+-date fecha;
+}
+
+class Curso{
+-string nombre;
+-string codigo;
+-string descripcion;
+}
+
+
+
+Alumno "*" .. "1" Nota: "recibe"
+ControlEscritoAlumno  "*" .. "1" Practica: "son"
+Profesor "*" .. "1" Practica : "Diseña" 
+Profesor  "*" .. "1" Curso : "Imparte" 
+Profesor  "*" .. "1" Practica : "Colabora" 
+Asignatura  "*" .. "1" Tema : "Contiene" 
+Curso  "*" .. "1" Asignatura : "Incluye" 
+Tema  "*" .. "1" Evaluacion : "Relacionado"
+Evaluacion  "*" .. "1" ControlEscrito : "Escrito" 
+Evaluacion  "*" .. "1" Practica : "Práctico" 
+Practica  "*" .. "1" Nota : "Obtiene" 
+ControlEscrito  "*" .. "1" Nota : "Obtiene"
+Practica  "*" .. "1" Profesor : "Diseñada por" 
+Evaluacion  "*" .. "1" Asignatura : "Pertenece a" 
+Evaluacion  "*" .. "1" Tema : "Evalúa" 
+Curso  "*" .. "1" Alumno : "Inscrito en" 
+Alumno  "*" .. "1" Asignatura : "Cursa" 
+Practica  "*" .. "1" Asignatura : "Relacionado con" 
+Practica  "*" .. "1" Tema : "Cubre"
+
+@enduml
+@enduml
